@@ -29,18 +29,23 @@ for i, d in enumerate(documents):
   )
 
 # prompt
-prompt = "What animals are llamas related to?"
+prompt = "How tall llama can grow?"
 
 # generate an embedding for the prompt and retrieve the most relevant doc
 response = ollama.embeddings(
   model="mxbai-embed-large",
   prompt=prompt
 )
+
+print(response)
+
 results = collection.query(
   query_embeddings=[response["embedding"]],
-  n_results=1
+  n_results=3
 )
-data = results['documents'][0][0]
+data = results['documents'][0]
+
+print(data)
 
 # generate a response combining the prompt and data we retrieved in step 2
 output = ollama.generate(
